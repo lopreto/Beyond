@@ -23,7 +23,7 @@ namespace Beyond.TodoProject.Application.Services
 
 				if (allCategories == null || !allCategories.Any(x => x == category))
 					throw new ArgumentException("Category not found.");
-
+				
 				_todoList.AddItem(_todoListRepository.GetNextId(), title, description, category);
 			}
 			catch (Exception ex)

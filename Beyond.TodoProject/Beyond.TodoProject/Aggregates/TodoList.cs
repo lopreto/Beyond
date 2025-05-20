@@ -4,23 +4,24 @@ namespace Beyond.TodoProject.Domain.Aggregates
 {
 	public class TodoList : ITodoList
 	{
-		private readonly List<TodoItem> _items = new();
+		private readonly List<TodoItem> _todoItems = new();
+		internal IReadOnlyList<TodoItem> TodoItems => _todoItems;
 
 		public void AddItem(int id, string title, string description, string category)
 		{
-			if (_items.Any(item => item.Id == id))
+			if (_todoItems.Any(item => item.Id == id))
 				throw new InvalidOperationException($"Ya existe un ítem con el ID {id}.");
 
 			if (string.IsNullOrWhiteSpace(title))
 				throw new ArgumentException("El título es obligatorio.", nameof(title));
 
 			var newItem = new TodoItem(id, title, description, category);
-			_items.Add(newItem);
+			_todoItems.Add(newItem);
 		}
 
 		public void PrintItems()
 		{
-			var orderedItems = _items.OrderBy(x => x.Id);
+			var orderedItems = _todoItems.OrderBy(x => x.Id);
 			foreach (var item in orderedItems)
 			{
 				Console.WriteLine($"{item.Id}) {item.Title} - {item.Description} ({item.Category}) Completed:{item.IsCompleted}.");
@@ -45,7 +46,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 			if (percent <= 0 || percent >= 100)
 				throw new ArgumentException("El porcentaje debe ser mayor que 0 y menor que 100.");
 
-			var item = _items.FirstOrDefault(x => x.Id == id);
+			var item = _todoItems.FirstOrDefault(x => x.Id == id);
 			if (item == null)
 				throw new ArgumentException($"No se encontró ningún TodoItem con Id {id}.");
 
@@ -64,7 +65,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 
 		public void RemoveItem(int id)
 		{
-			var item = _items.FirstOrDefault(x => x.Id == id);
+			var item = _todoItems.FirstOrDefault(x => x.Id == id);
 
 			if (item == null)
 				throw new ArgumentException($"No se encontró ningún TodoItem con Id {id}.");
@@ -73,12 +74,12 @@ namespace Beyond.TodoProject.Domain.Aggregates
 			if (totalProgress > 50)
 				throw new ArgumentException($"No se puede borrar el TodoItem con Id {id}.");
 
-			_items.Remove(item);
+			_todoItems.Remove(item);
 		}
 
 		public void UpdateItem(int id, string description)
 		{
-			var item = _items.FirstOrDefault(x => x.Id == id);
+			var item = _todoItems.FirstOrDefault(x => x.Id == id);
 
 			if (item == null)
 				throw new ArgumentException($"No se encontró ningún TodoItem con Id {id}.");
@@ -91,7 +92,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 		}
 	}
 
-	internal class TodoItem
+	public class TodoItem
 	{
 		public int Id { get; private set; }
 		public string Title { get; private set; }
@@ -122,7 +123,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 		}
 	}
 
-	internal class Progression
+	public class Progression
 	{
 		public DateTime DateTime { get; set; }
 		public decimal Percent { get; set; }
