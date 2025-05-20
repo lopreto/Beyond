@@ -1,5 +1,4 @@
-﻿using Beyond.TodoProject.Domain.Interfaces;
-using System.Text;
+﻿using System.Text;
 
 namespace Beyond.TodoProject.Domain.Aggregates
 {
@@ -37,6 +36,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 					Console.WriteLine($"{progression.DateTime.ToString("M/d/yyyy h:mm:ss tt")} - {accumulatedPercent}%\t|{progressBar}|");
 					
 				}
+				Console.WriteLine("\n\n");
 			}
 		}
 

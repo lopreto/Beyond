@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Beyond.TodoProject.Application\Beyond.TodoProject.Application.csproj" />
+    <ProjectReference Include="..\Beyond.TodoProject.Infraestructure\Beyond.TodoProject.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>

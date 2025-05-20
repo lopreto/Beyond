@@ -1,4 +1,4 @@
-﻿namespace Beyond.TodoProject.Domain.Interfaces
+﻿namespace Beyond.TodoProject.Domain.Aggregates
 {
 	public interface ITodoList
 	{
