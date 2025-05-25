@@ -31,9 +31,6 @@ namespace Beyond.TodoProject.WebApi.Controllers
 		{
 			var result = await _todoListService.PrintItems();
 
-			if(!string.IsNullOrWhiteSpace(result.ErrorMessage))
-				return StatusCode((int)HttpStatusCode.InternalServerError, result);
-
 			return Ok(result);
 		}
 
@@ -47,9 +44,6 @@ namespace Beyond.TodoProject.WebApi.Controllers
 		public async Task<IActionResult> AddItem([FromBody] AddItemRequest request)
 		{
 			var result = await _todoListService.AddItem(request.Title, request.Description, request.Category);
-
-			if (!string.IsNullOrWhiteSpace(result.ErrorMessage))
-				return StatusCode((int)HttpStatusCode.InternalServerError, result);
 
 			return Ok(result);
 		}
@@ -65,9 +59,6 @@ namespace Beyond.TodoProject.WebApi.Controllers
 		{
 			var result = await _todoListService.UpdateItem(id, UpdateItemRequest.Description);
 
-			if (!string.IsNullOrWhiteSpace(result.ErrorMessage))
-				return StatusCode((int)HttpStatusCode.InternalServerError, result);
-
 			return Ok(result);
 		}
 
@@ -82,9 +73,6 @@ namespace Beyond.TodoProject.WebApi.Controllers
 		{
 			var result = await _todoListService.RemoveItem(id);
 
-			if (!string.IsNullOrWhiteSpace(result.ErrorMessage))
-				return StatusCode((int)HttpStatusCode.InternalServerError, result);
-
 			return Ok(result);
 		}
 
@@ -98,9 +86,6 @@ namespace Beyond.TodoProject.WebApi.Controllers
 		public async Task<IActionResult> RegisterProgression(int itemId, RegisterProgressionRequest request)
 		{
 			var result = await _todoListService.RegisterProgression(itemId, request.Date, request.Percent);
-
-			if (!string.IsNullOrWhiteSpace(result.ErrorMessage))
-				return StatusCode((int)HttpStatusCode.InternalServerError, result);
 
 			return Ok(result);
 		}

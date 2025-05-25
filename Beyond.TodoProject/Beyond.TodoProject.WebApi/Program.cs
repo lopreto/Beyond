@@ -17,11 +17,21 @@ builder.Services.AddSwaggerGen();
 // En un contexto con acceso a base de datos u otros recursos por solicitud, se debería usar Scoped en su lugar.
 builder.Services.AddSingleton<ITodoList, TodoList>();
 builder.Services.AddScoped<ITodoListService, TodoListService>();
-builder.Services.AddScoped<ITodoListRepository, TodoListRepository>();
+builder.Services.AddSingleton<ITodoListRepository, TodoListRepository>();
 
 builder.Services.AddLogging(config =>
 {
 	config.AddConsole();
+});
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("CorsPolicy", policy =>
+	{
+		policy.AllowAnyOrigin()
+			  .AllowAnyHeader()
+			  .AllowAnyMethod();
+	});
 });
 
 var app = builder.Build();
@@ -32,7 +42,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
+app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
