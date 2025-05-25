@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beyond.TodoProject.Console", "Beyond.TodoProject.Console\Beyond.TodoProject.Console.csproj", "{A990715C-3C53-4558-86AF-2BA3EF147105}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beyond.TodoProject.ConsoleApp", "Beyond.TodoProject.Console\Beyond.TodoProject.ConsoleApp.csproj", "{A990715C-3C53-4558-86AF-2BA3EF147105}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{03315774-D52B-43ED-BF5A-A2312469709E}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beyond.TodoProject.Infraestructure", "Beyond.TodoProject.Infraestructure\Beyond.TodoProject.Infraestructure.csproj", "{ACBDC58A-745E-4AED-B517-9CA1D7027CF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beyond.TodoProject.Tests", "Beyond.TodoProject.Tests\Beyond.TodoProject.Tests.csproj", "{414EC5E4-E66D-492C-8954-202830084F02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beyond.TodoProject.WebApi", "Beyond.TodoProject.WebApi\Beyond.TodoProject.WebApi.csproj", "{6EFAEDCF-C615-43DF-BEDB-24998C61D5A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{414EC5E4-E66D-492C-8954-202830084F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{414EC5E4-E66D-492C-8954-202830084F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{414EC5E4-E66D-492C-8954-202830084F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EFAEDCF-C615-43DF-BEDB-24998C61D5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EFAEDCF-C615-43DF-BEDB-24998C61D5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EFAEDCF-C615-43DF-BEDB-24998C61D5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EFAEDCF-C615-43DF-BEDB-24998C61D5A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +63,6 @@ Global
 		{065C4871-EB3A-4347-BE22-4294BF409EFA} = {03315774-D52B-43ED-BF5A-A2312469709E}
 		{ACBDC58A-745E-4AED-B517-9CA1D7027CF2} = {277B57D1-0F4D-4FF9-9C74-50C42A1C0AA9}
 		{414EC5E4-E66D-492C-8954-202830084F02} = {46E358DF-B4C1-4122-8A7A-912BB81E6F19}
+		{6EFAEDCF-C615-43DF-BEDB-24998C61D5A4} = {CE0D4F9F-0BDC-4143-B6DB-23E3EC4C2503}
 	EndGlobalSection
 EndGlobal

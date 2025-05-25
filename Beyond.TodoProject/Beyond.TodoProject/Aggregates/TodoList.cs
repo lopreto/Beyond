@@ -4,16 +4,17 @@ namespace Beyond.TodoProject.Domain.Aggregates
 {
 	public class TodoList : ITodoList
 	{
-		private readonly List<TodoItem> _todoItems = new();
-		internal IReadOnlyList<TodoItem> TodoItems => _todoItems;
+		private List<TodoItem> _todoItems = new();
+
+		public IReadOnlyList<TodoItem> TodoItems => _todoItems;
 
 		public void AddItem(int id, string title, string description, string category)
 		{
 			if (_todoItems.Any(item => item.Id == id))
-				throw new InvalidOperationException($"Ya existe un ítem con el ID {id}.");
+				throw new ArgumentException($"An item with Id {id} already exists.");
 
 			if (string.IsNullOrWhiteSpace(title))
-				throw new ArgumentException("El título es obligatorio.", nameof(title));
+				throw new ArgumentException("The title is required.", nameof(title));
 
 			var newItem = new TodoItem(id, title, description, category);
 			_todoItems.Add(newItem);
@@ -22,40 +23,24 @@ namespace Beyond.TodoProject.Domain.Aggregates
 		public void PrintItems()
 		{
 			var orderedItems = _todoItems.OrderBy(x => x.Id);
-			foreach (var item in orderedItems)
-			{
-				Console.WriteLine($"{item.Id}) {item.Title} - {item.Description} ({item.Category}) Completed:{item.IsCompleted}.");
-				decimal accumulatedPercent = 0;
-				foreach (var progression in item.Progressions)
-				{
-					accumulatedPercent += progression.Percent;
-					int filled = (int)(accumulatedPercent / 2);
-					int empty = 50 - filled;
-
-					var progressBar = new string('0', filled) + new string(' ', empty);
-
-					Console.WriteLine($"{progression.DateTime.ToString("M/d/yyyy h:mm:ss tt")} - {accumulatedPercent}%\t|{progressBar}|");
-					
-				}
-				Console.WriteLine("\n\n");
-			}
+			_todoItems = orderedItems.ToList();
 		}
 
 		public void RegisterProgression(int id, DateTime dateTime, decimal percent)
 		{
 			if (percent <= 0 || percent >= 100)
-				throw new ArgumentException("El porcentaje debe ser mayor que 0 y menor que 100.");
+				throw new ArgumentException("The percentage must be greater than 0 and less than 100.");
 
 			var item = _todoItems.FirstOrDefault(x => x.Id == id);
 			if (item == null)
-				throw new ArgumentException($"No se encontró ningún TodoItem con Id {id}.");
+				throw new ArgumentException($"No TodoItem found with Id {id}.");
 
 			if (item.Progressions.Any(p => p.DateTime >= dateTime))
-				throw new InvalidOperationException("La fecha de la nueva progresión debe ser mayor a las fechas ya registradas.");
+				throw new ArgumentException("The date of the new progression must be greater than the dates already recorded.");
 
 			var totalProgress = item.Progressions.Sum(p => p.Percent) + percent;
 			if (totalProgress > 100)
-				throw new InvalidOperationException("La suma total del progreso no puede exceder el 100%.");
+				throw new ArgumentException("The total sum of progress cannot exceed 100%.");
 
 			item.Progressions.Add(new Progression(dateTime, percent));
 
@@ -68,11 +53,11 @@ namespace Beyond.TodoProject.Domain.Aggregates
 			var item = _todoItems.FirstOrDefault(x => x.Id == id);
 
 			if (item == null)
-				throw new ArgumentException($"No se encontró ningún TodoItem con Id {id}.");
+				throw new ArgumentException($"No TodoItem found with Id {id}.");
 
 			var totalProgress = item.Progressions.Sum(p => p.Percent);
 			if (totalProgress > 50)
-				throw new ArgumentException($"No se puede borrar el TodoItem con Id {id}.");
+				throw new ArgumentException($"Cannot delete TodoItem with Id {id}.");
 
 			_todoItems.Remove(item);
 		}
@@ -82,11 +67,12 @@ namespace Beyond.TodoProject.Domain.Aggregates
 			var item = _todoItems.FirstOrDefault(x => x.Id == id);
 
 			if (item == null)
-				throw new ArgumentException($"No se encontró ningún TodoItem con Id {id}.");
+				throw new ArgumentException($"No TodoItem found with Id {id}.");
 
 			var totalProgress = item.Progressions.Sum(p => p.Percent);
+
 			if (totalProgress > 50)
-				throw new ArgumentException($"No se puede cambiar el TodoItem con Id {id}. Tiene mas de 50% completo");
+				throw new ArgumentException($"The TodoItem with Id {id} cannot be changed. It is more than 50% complete.");
 
 			item.UpdateDescription(description);
 		}
