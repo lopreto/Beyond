@@ -13,9 +13,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Se registra como Singleton para mantener la instancia durante toda la vida de la aplicación.
+// En un contexto con acceso a base de datos u otros recursos por solicitud, se debería usar Scoped en su lugar.
 builder.Services.AddSingleton<ITodoList, TodoList>();
 builder.Services.AddScoped<ITodoListService, TodoListService>();
 builder.Services.AddScoped<ITodoListRepository, TodoListRepository>();
+
+builder.Services.AddLogging(config =>
+{
+	config.AddConsole();
+});
 
 var app = builder.Build();
 

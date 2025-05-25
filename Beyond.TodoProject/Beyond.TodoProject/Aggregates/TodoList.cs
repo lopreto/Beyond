@@ -14,7 +14,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 				throw new ArgumentException($"An item with Id {id} already exists.");
 
 			if (string.IsNullOrWhiteSpace(title))
-				throw new ArgumentException("The title is required.", nameof(title));
+				throw new ArgumentException("The title is required.");
 
 			var newItem = new TodoItem(id, title, description, category);
 			_todoItems.Add(newItem);
@@ -57,7 +57,7 @@ namespace Beyond.TodoProject.Domain.Aggregates
 
 			var totalProgress = item.Progressions.Sum(p => p.Percent);
 			if (totalProgress > 50)
-				throw new ArgumentException($"Cannot delete TodoItem with Id {id}.");
+				throw new ArgumentException($"The TodoItem with Id {id} cannot be deleted. It is more than 50% complete.");
 
 			_todoItems.Remove(item);
 		}
