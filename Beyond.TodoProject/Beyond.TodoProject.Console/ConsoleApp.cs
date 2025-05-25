@@ -31,7 +31,7 @@ namespace Beyond.TodoProject.ConsoleApp
 			if (result is null)
 				Console.WriteLine("Items not found.");
 
-			foreach (var item in result.Result)
+			foreach (var item in result.Data)
 			{
 				System.Console.WriteLine($"{item.Id}) {item.Title} - {item.Description} ({item.Category}) Completed:{item.IsCompleted}.");
 				decimal accumulatedPercent = 0;

@@ -5,7 +5,7 @@ namespace Beyond.TodoProject.Application.Interfaces
 {
 	public interface ITodoListService
 	{
-		Task<BaseResultDto<bool>> AddItem(string title, string description, string category);
+		Task<BaseResultDto<int>> AddItem(string title, string description, string category);
 		Task<BaseResultDto<bool>> UpdateItem(int id, string description);
 		Task<BaseResultDto<bool>> RemoveItem(int id);
 		Task<BaseResultDto<bool>> RegisterProgression(int id, DateTime dateTime, decimal percent);

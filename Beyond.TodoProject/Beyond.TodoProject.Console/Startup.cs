@@ -18,7 +18,7 @@ namespace Beyond.TodoProject.ConsoleApp
 			});
 
 			services.AddScoped<ITodoList, TodoList>();
-			services.AddTransient<ITodoListService, TodoListService>();
+			services.AddScoped<ITodoListService, TodoListService>();
 			services.AddScoped<ITodoListRepository, TodoListRepository>();
 		}
 	}

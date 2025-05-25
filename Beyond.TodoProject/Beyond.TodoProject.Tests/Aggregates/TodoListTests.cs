@@ -66,6 +66,7 @@ namespace Beyond.TodoProject.Tests.Aggregates
 			todoList?.TodoItems?.FirstOrDefault()?.IsCompleted.Should().BeFalse();
 		}
 
+		//Happy path
 		[Fact]
 		public void RegisterProgression_AddProgressionPercentEquals100_AddToProgressionList()
 		{

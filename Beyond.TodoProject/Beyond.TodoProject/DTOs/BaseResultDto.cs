@@ -3,16 +3,17 @@
 	public class BaseResultDto<T>
 	{
 		public string? ErrorMessage { get; private set; }
-		public T? Result { get; private set; }
+		public T? Data { get; private set; }
 
-		public BaseResultDto(T result)
+		public BaseResultDto(T data)
 		{
-			Result = result;
+			Data = data;
 		}
 
 		public BaseResultDto(string errorMessage)
 		{
 			ErrorMessage = errorMessage;
+			Data = default;
 		}
 	}
 }

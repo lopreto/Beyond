@@ -12,29 +12,30 @@ namespace Beyond.TodoProject.Application.Services
 		private readonly ITodoListRepository _todoListRepository;
 		private readonly ILogger<TodoListService> _logger;
 
-		public TodoListService(ITodoListRepository todoListRepository, ILogger<TodoListService> logger)
+		public TodoListService(ITodoList todoListTest, ITodoListRepository todoListRepository, ILogger<TodoListService> logger)
 		{
-			_todoList = new TodoList();
+			_todoList = todoListTest as TodoList ?? throw new InvalidOperationException("A specific instance of TodoList was expected.");
 			_todoListRepository = todoListRepository;
 			_logger = logger;
 		}
 
-		public async Task<BaseResultDto<bool>> AddItem(string title, string description, string category)
+		public async Task<BaseResultDto<int>> AddItem(string title, string description, string category)
 		{
 			try
 			{
 				var allCategories = _todoListRepository.GetAllCategories();
+				var id = _todoListRepository.GetNextId();
 
-				if (allCategories == null || !allCategories.Any(x => x == category))
+				if (allCategories == null || !allCategories.Any(x => x.Equals(category, StringComparison.InvariantCultureIgnoreCase)))
 					throw new ArgumentException("Category not found.");
 
-				_todoList.AddItem(_todoListRepository.GetNextId(), title, description, category);
-				return new BaseResultDto<bool>(true);
+				_todoList.AddItem(id, title, description, category);
+				return new BaseResultDto<int>(id);
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError(ex, ex.Message);
-				return new BaseResultDto<bool>(ex.Message);
+				return new BaseResultDto<int>(ex.Message);
 			}
 		}
 
