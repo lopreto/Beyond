@@ -80,7 +80,7 @@ namespace Beyond.TodoProject.WebApi.Controllers
 		/// Method used to register a progression in an item
 		/// </summary>
 		/// <returns>Returns a boolean.</returns>
-		[HttpPost("{id}/RegisterProgression")]
+		[HttpPost("{itemId}/RegisterProgression")]
 		[ProducesResponseType(typeof(BaseResultDto<int>), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(BaseResultDto<int>), StatusCodes.Status500InternalServerError)]
 		public async Task<IActionResult> RegisterProgression(int itemId, RegisterProgressionRequest request)
